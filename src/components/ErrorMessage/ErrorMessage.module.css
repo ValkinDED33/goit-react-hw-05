@@ -1,0 +1,18 @@
+.error {
+  background-color: #d9534f; /* Красный фон */
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 20px auto;
+  width: fit-content;
+  max-width: 80%;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.error:hover {
+  opacity: 0.9;
+}

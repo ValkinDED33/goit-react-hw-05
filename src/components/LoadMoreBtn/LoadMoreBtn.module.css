@@ -1,0 +1,24 @@
+.button {
+  display: inline-block; /* Избегаем растягивания на всю ширину */
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  background-color: #3b44c5;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #2a32a3;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
