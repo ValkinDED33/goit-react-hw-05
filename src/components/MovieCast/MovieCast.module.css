@@ -3,44 +3,7 @@
   padding: 20px;
 }
 
-.castGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 20px;
-  justify-content: center;
-}
-
-.actorCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 10px;
-  text-align: center;
-}
-
-.actorCard img {
-  width: 100%;
-  border-radius: 10px;
-}
-
-.noImage {
-  width: 100%;
-  height: 200px;
-  background-color: #ddd;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  color: #666;
-}
-.cast {
-  padding: 20px;
-}
-
 .cast h2 {
-  text-align: center;
   margin-bottom: 20px;
 }
 
@@ -58,11 +21,15 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   background: #fff;
   padding: 10px;
+  transition: transform 0.3s ease;
+}
+
+.actorCard:hover {
+  transform: scale(1.05);
 }
 
 .actorCard img {
   width: 100%;
-  height: auto;
   border-radius: 10px;
 }
 

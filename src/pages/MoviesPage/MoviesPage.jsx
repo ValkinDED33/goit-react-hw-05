@@ -8,30 +8,35 @@ const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
   const [searched, setSearched] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    console.log("Searching for:", query);
 
-    if (!query.trim()) return;
+    if (!query.trim()) {
+      setError("Please enter a search term and try again.");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
 
     try {
       const data = await searchMovies(query);
-      console.log("Fetched movies:", data.results);
-
       setMovies(data.results || []);
       setSearched(true);
-      setError(null);
     } catch (err) {
       console.error("Search error:", err);
       setError("Failed to fetch movies. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className={styles.movies}>
       <h1>Search Movies</h1>
-      <form onSubmit={handleSearch} className={styles.searchForm}>
+      <form onSubmit={handleSearch}>
         <input
           type="text"
           value={query}
@@ -42,28 +47,30 @@ const MoviesPage = () => {
       </form>
 
       {error && <p className={styles.error}>{error}</p>}
+      {loading && <div className={styles.loader}></div>}
 
-      {searched && movies.length === 0 && <p>No results found</p>}
+      {!loading && searched && movies.length === 0 && <p>No results found</p>}
 
       <div className={styles.movieGrid}>
-        {movies.map((movie) => (
-          <Link
-            to={`/movies/${movie.id}`}
-            key={movie.id}
-            className={styles.movieCard}
-          >
-            {movie.poster_path ? (
-              <img
-                src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-                alt={movie.title}
-              />
-            ) : (
-              <div className={styles.noImage}>No Image</div>
-            )}
-            <h3>{movie.title}</h3>
-            <p>Rating: {movie.vote_average}</p>
-          </Link>
-        ))}
+        {!loading &&
+          movies.map((movie) => (
+            <Link
+              key={movie.id}
+              to={`/movies/${movie.id}`}
+              className={styles.movieCard}
+            >
+              <h3>{movie.title}</h3>
+              <p>Rating: {movie.vote_average}</p>
+              {movie.poster_path ? (
+                <img
+                  src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                  alt={movie.title}
+                />
+              ) : (
+                <div className={styles.noImage}>No image available</div>
+              )}
+            </Link>
+          ))}
       </div>
     </div>
   );
