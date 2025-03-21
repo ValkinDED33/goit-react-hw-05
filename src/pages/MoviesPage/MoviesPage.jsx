@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { searchMovies } from "../../api";
 import styles from "./MoviesPage.module.css";
 
@@ -30,7 +31,7 @@ const MoviesPage = () => {
   return (
     <div className={styles.movies}>
       <h1>Search Movies</h1>
-      <form onSubmit={handleSearch}>
+      <form onSubmit={handleSearch} className={styles.searchForm}>
         <input
           type="text"
           value={query}
@@ -44,22 +45,26 @@ const MoviesPage = () => {
 
       {searched && movies.length === 0 && <p>No results found</p>}
 
-      <ul>
+      <div className={styles.movieGrid}>
         {movies.map((movie) => (
-          <li key={movie.id}>
-            <h3>{movie.title}</h3>
-            <p>Rating: {movie.vote_average}</p>
+          <Link
+            to={`/movies/${movie.id}`}
+            key={movie.id}
+            className={styles.movieCard}
+          >
             {movie.poster_path ? (
               <img
                 src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                 alt={movie.title}
               />
             ) : (
-              <p>No image available</p>
+              <div className={styles.noImage}>No Image</div>
             )}
-          </li>
+            <h3>{movie.title}</h3>
+            <p>Rating: {movie.vote_average}</p>
+          </Link>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import { useParams, Link, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getMovieDetails } from "../../api.js";
-
+import { getMovieDetails } from "../../api";
 import styles from "./MovieDetailsPage.module.css";
 
 const MovieDetailsPage = () => {
@@ -22,8 +21,18 @@ const MovieDetailsPage = () => {
         alt={movie.title}
       />
       <p>{movie.overview}</p>
-      <Link to="cast">Cast</Link>
-      <Link to="reviews">Reviews</Link>
+
+      {}
+      <div className={styles.buttonContainer}>
+        <Link to="cast" className={styles.button}>
+          Cast
+        </Link>
+        <Link to="reviews" className={styles.button}>
+          Reviews
+        </Link>
+      </div>
+
+      {}
       <Outlet />
     </div>
   );

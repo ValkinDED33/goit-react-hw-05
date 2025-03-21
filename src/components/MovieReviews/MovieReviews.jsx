@@ -1,6 +1,6 @@
-import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { fetchMovieReviews } from "../../api";
+import { useParams } from "react-router-dom";
+import { getMovieReviews } from "../../api";
 import styles from "./MovieReviews.module.css";
 
 const MovieReviews = () => {
@@ -8,22 +8,25 @@ const MovieReviews = () => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    fetchMovieReviews(movieId).then(setReviews);
+    getMovieReviews(movieId).then((data) => setReviews(data?.results || []));
   }, [movieId]);
 
   return (
-    <ul className={styles.reviews}>
+    <div className={styles.reviews}>
+      <h2>Reviews</h2>
       {reviews.length > 0 ? (
-        reviews.map((review) => (
-          <li key={review.id}>
-            <p>{review.content}</p>
-            <p>— {review.author}</p>
-          </li>
-        ))
+        <ul>
+          {reviews.map((review) => (
+            <li key={review.id}>
+              <h3>{review.author}</h3>
+              <p>{review.content}</p>
+            </li>
+          ))}
+        </ul>
       ) : (
-        <p>No reviews found</p>
+        <p>No reviews available.</p>
       )}
-    </ul>
+    </div>
   );
 };
 
