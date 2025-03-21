@@ -6,7 +6,17 @@ export default defineConfig({
   define: {
     "process.env": {},
   },
+  base: "/",
   build: {
     sourcemap: true,
+  },
+  server: {
+    host: true,
+    port: 5173,
+  },
+  resolve: {
+    alias: {
+      "@": "/src",
+    },
   },
 });
