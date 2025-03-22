@@ -3,12 +3,12 @@ import react from "@vitejs/plugin-react-swc";
 
 export default defineConfig({
   plugins: [react()],
-  base: "./", // 👈 Добавь это для корректной работы на Vercel
+  base: "./",
   define: {
     "process.env": {},
   },
   build: {
-    outDir: "dist", // 👈 Убедись, что Vercel берет файлы отсюда
+    outDir: "dist",
     sourcemap: true,
   },
 });
